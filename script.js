@@ -1,6 +1,9 @@
 const pinGeneratorBtn = document.getElementById("pin-generator-btn");
 const generatedPinDisplay = document.getElementById("generated-pin-display");
 const number = document.querySelectorAll("[data-number]");
+const userInputPinDisplay = document.querySelector(
+  "[data-user-input-pin-display]"
+);
 
 // Random pin Generator (start)
 pinGeneratorBtn.addEventListener("click", function () {
@@ -12,7 +15,7 @@ pinGeneratorBtn.addEventListener("click", function () {
 for (let i = 0; i < number.length; i++) {
   const numberBtn = number[i];
   numberBtn.addEventListener("click", function () {
-    console.log(numberBtn.innerText);
+    userInputPinDisplay.value = numberBtn.innerText;
   });
 }
 // practice
