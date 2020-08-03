@@ -12,13 +12,26 @@ let tryLeftCountNumber = parseInt(
   document.getElementById("try-left-count").innerText
 );
 
-// Random pin Generator (start)
+// functions
+function submitButtonDisabled() {
+  submitBtn.disabled = true;
+  submitBtn.style.backgroundColor = "grey";
+}
+
+function displayStatus(idBlock, idNone, isClear) {
+  isClear
+    ? (document.getElementById(idBlock).style.display = "none")
+    : (document.getElementById(idBlock).style.display = "block");
+  document.getElementById(idNone).style.display = "none";
+}
+
+// Random pin Generator
 pinGeneratorBtn.addEventListener("click", function () {
   let pinNumber = Math.floor(Math.random() * (9999 - 1000) + 1000);
   generatedPinDisplay.value = pinNumber;
 });
 
-// user pin input (start)
+// user pin input
 for (let i = 0; i < number.length; i++) {
   const numberBtn = number[i];
   numberBtn.addEventListener("click", function () {
@@ -33,8 +46,7 @@ for (let i = 0; i < number.length; i++) {
 //Cancel Button (C)
 cancel.addEventListener("click", function () {
   userInputPinDisplay.value = "";
-  document.getElementById("pin-approved").style.display = "none";
-  document.getElementById("pin-declined").style.display = "none";
+  displayStatus("pin-approved", "pin-declined", true);
 });
 
 // Backspace Button (<)
@@ -48,17 +60,18 @@ submitBtn.addEventListener("click", function () {
     return;
   }
   if (generatedPinDisplay.value == userInputPinDisplay.value) {
-    document.getElementById("pin-approved").style.display = "block";
-    document.getElementById("pin-declined").style.display = "none";
+    displayStatus("pin-approved", "pin-declined", false);
     tryLeftCount.style.display = "none";
-  } else {
-    document.getElementById("pin-declined").style.display = "block";
-    document.getElementById("pin-approved").style.display = "none";
+    submitButtonDisabled();
+  }
+  if (generatedPinDisplay.value != userInputPinDisplay.value) {
+    displayStatus("pin-declined", "pin-approved", false);
     tryLeftCountNumber--;
     if (tryLeftCountNumber <= 0) {
-      submitBtn.disabled = true;
-      submitBtn.style.backgroundColor = "grey";
+      submitButtonDisabled();
       tryLeftCount.innerText = tryLeftCountNumber + " try left";
+      document.getElementById("pin-declined").innerText =
+        "Reload the page to get 3 more try ";
     } else {
       tryLeftCount.innerText = tryLeftCountNumber + " try left";
     }
