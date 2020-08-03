@@ -13,14 +13,18 @@ pinGeneratorBtn.addEventListener("click", function () {
   generatedPinDisplay.value = pinNumber;
 });
 // Random pin Generator (end)
-
+// user pin input (start)
 for (let i = 0; i < number.length; i++) {
   const numberBtn = number[i];
   numberBtn.addEventListener("click", function () {
-    userInputPinDisplay.value += numberBtn.innerText;
+    if (userInputPinDisplay.value.length == 4) {
+      return;
+    } else {
+      userInputPinDisplay.value += numberBtn.innerText;
+    }
   });
 }
-
+// user pin input (end)
 // practice
 
 // const submitBtn = document.querySelector("[data-submit]");
