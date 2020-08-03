@@ -28,6 +28,10 @@ for (let i = 0; i < number.length; i++) {
 cancel.addEventListener("click", function () {
   userInputPinDisplay.value = "";
 });
+
+backSpace.addEventListener("click", function () {
+  userInputPinDisplay.value = userInputPinDisplay.value.slice(0, -1);
+});
 // practice
 
 // const submitBtn = document.querySelector("[data-submit]");
