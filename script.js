@@ -25,6 +25,9 @@ for (let i = 0; i < number.length; i++) {
   });
 }
 // user pin input (end)
+cancel.addEventListener("click", function () {
+  userInputPinDisplay.value = "";
+});
 // practice
 
 // const submitBtn = document.querySelector("[data-submit]");
