@@ -18,7 +18,7 @@ function submitButtonDisabled() {
   submitBtn.style.backgroundColor = "grey";
 }
 
-function matchingDisplayStatus(idBlock, idNone, isClear) {
+function promptResponse(idBlock, idNone, isClear) {
   isClear
     ? (document.getElementById(idBlock).style.display = "none")
     : (document.getElementById(idBlock).style.display = "block");
@@ -32,7 +32,7 @@ function reset() {
   submitBtn.disabled = false;
   submitBtn.style.backgroundColor = "#495bc3";
   userInputPinDisplay.value = "";
-  matchingDisplayStatus("pin-approved", "pin-declined", true);
+  promptResponse("pin-approved", "pin-declined", true);
 }
 
 // Random pin Generator
@@ -48,16 +48,15 @@ for (let i = 0; i < number.length; i++) {
   numberBtn.addEventListener("click", function () {
     if (userInputPinDisplay.value.length == 4) {
       return;
-    } else {
-      userInputPinDisplay.value += numberBtn.innerText;
     }
+    userInputPinDisplay.value += numberBtn.innerText;
   });
 }
 
 //Cancel Button (C)
 cancel.addEventListener("click", function () {
   userInputPinDisplay.value = "";
-  matchingDisplayStatus("pin-approved", "pin-declined", true);
+  promptResponse("pin-approved", "pin-declined", true);
 });
 
 // Backspace Button (<)
@@ -71,18 +70,16 @@ submitBtn.addEventListener("click", function () {
     return;
   }
   if (generatedPinDisplay.value == userInputPinDisplay.value) {
-    matchingDisplayStatus("pin-approved", "pin-declined", false);
+    promptResponse("pin-approved", "pin-declined", false);
     tryLeftCount.style.display = "none";
     submitButtonDisabled();
   }
   if (generatedPinDisplay.value != userInputPinDisplay.value) {
-    matchingDisplayStatus("pin-declined", "pin-approved", false);
+    promptResponse("pin-declined", "pin-approved", false);
     tryLeftCountNumber--;
     if (tryLeftCountNumber <= 0) {
       submitButtonDisabled();
-      tryLeftCount.innerText = tryLeftCountNumber + " try left";
-    } else {
-      tryLeftCount.innerText = tryLeftCountNumber + " try left";
     }
+    tryLeftCount.innerText = tryLeftCountNumber + " try left";
   }
 });
