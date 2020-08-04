@@ -18,17 +18,28 @@ function submitButtonDisabled() {
   submitBtn.style.backgroundColor = "grey";
 }
 
-function displayStatus(idBlock, idNone, isClear) {
+function matchingDisplayStatus(idBlock, idNone, isClear) {
   isClear
     ? (document.getElementById(idBlock).style.display = "none")
     : (document.getElementById(idBlock).style.display = "block");
   document.getElementById(idNone).style.display = "none";
 }
 
+function reset() {
+  tryLeftCountNumber = 3;
+  tryLeftCount.innerText = tryLeftCountNumber + " try left";
+  tryLeftCount.style.display = "block";
+  submitBtn.disabled = false;
+  submitBtn.style.backgroundColor = "#495bc3";
+  userInputPinDisplay.value = "";
+  matchingDisplayStatus("pin-approved", "pin-declined", true);
+}
+
 // Random pin Generator
 pinGeneratorBtn.addEventListener("click", function () {
   let pinNumber = Math.floor(Math.random() * (9999 - 1000) + 1000);
   generatedPinDisplay.value = pinNumber;
+  reset();
 });
 
 // user pin input
@@ -46,7 +57,7 @@ for (let i = 0; i < number.length; i++) {
 //Cancel Button (C)
 cancel.addEventListener("click", function () {
   userInputPinDisplay.value = "";
-  displayStatus("pin-approved", "pin-declined", true);
+  matchingDisplayStatus("pin-approved", "pin-declined", true);
 });
 
 // Backspace Button (<)
@@ -60,18 +71,16 @@ submitBtn.addEventListener("click", function () {
     return;
   }
   if (generatedPinDisplay.value == userInputPinDisplay.value) {
-    displayStatus("pin-approved", "pin-declined", false);
+    matchingDisplayStatus("pin-approved", "pin-declined", false);
     tryLeftCount.style.display = "none";
     submitButtonDisabled();
   }
   if (generatedPinDisplay.value != userInputPinDisplay.value) {
-    displayStatus("pin-declined", "pin-approved", false);
+    matchingDisplayStatus("pin-declined", "pin-approved", false);
     tryLeftCountNumber--;
     if (tryLeftCountNumber <= 0) {
       submitButtonDisabled();
       tryLeftCount.innerText = tryLeftCountNumber + " try left";
-      document.getElementById("pin-declined").innerText =
-        "Reload the page to get 3 more try ";
     } else {
       tryLeftCount.innerText = tryLeftCountNumber + " try left";
     }
