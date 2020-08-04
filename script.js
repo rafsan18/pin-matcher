@@ -15,7 +15,7 @@ let tryLeftCountNumber = parseInt(
 // functions
 function submitButtonDisabled() {
   submitBtn.disabled = true;
-  submitBtn.style.backgroundColor = "grey";
+  submitBtn.style.backgroundColor = "rgba(73, 91, 195, .3)";
 }
 
 function promptResponse(idBlock, idNone, isClear) {
